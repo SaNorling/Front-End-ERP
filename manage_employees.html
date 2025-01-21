@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Employees</title>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+
+    <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Poppins;
+            margin: 0;
+            color: #333333;
+            background-color: #f5f5f5;
+
+        }
+
+        .df {
+            display: flex;
+        }
+
+        .jc-sb {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .icon-container {
+            display: flex;
+            justify-content: center;
+            background-color: rgb(255, 255, 255);
+            border-radius: 10px;
+            padding: 5px;
+            width: 30px;
+            height: 30px;
+
+        }
+
+        .sub-content {
+            padding: 1rem;
+            background-color: rgb(212, 221, 226);
+        }
+
+        .m-0 {
+            margin: 0;
+        }
+
+        .p-0 {
+            padding: 0;
+        }
+
+        .text-small {
+            font-size: smaller;
+        }
+
+        .gap-1 {
+            gap: 0.5rem;
+        }
+
+        .gap-2 {
+            gap: 2rem;
+        }
+
+        .df-vertical {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .text-bold {
+            font-weight: 500;
+        }
+
+        .light-blue {
+            color: #4fc3f7;
+        }
+
+        .mb-1 {
+            margin-bottom: 0.2rem;
+        }
+
+        .text-gray {
+            color: #5a5a5a;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333333;
+        }
+
+        .align-center {
+            align-items: center;
+        }
+
+        .btn-outline {
+            display: inline-block;
+            font-weight: 400;
+            color: #333333;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-color: white;
+            border: 1px solid #c2c2c2;
+            padding: 0.3rem 0.75rem;
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            font-weight: 400;
+            color: white;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-color: #0077ff;
+            padding: 0.3rem 1rem;
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .submenu-options {
+            border-bottom: 2px solid #ececec;
+            background-color: white;
+            padding-left: 1rem;
+            padding-left: 2rem;
+        }
+
+        .menu-btn {
+            display: flex;
+            gap: 0.3rem;
+            border-bottom: 2px solid #366bff;
+            padding: 0.7rem;
+
+        }
+
+        .main-content {
+            padding: 1rem 2rem 1rem 2rem;
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            height: calc(1.5em + 0.75rem + 2px);
+            padding: 0.375rem 0.75rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .search {
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1.2rem;
+        }
+
+        .search .form-control {
+            padding-left: 40px;
+        }
+
+        .form-control:focus {
+            border-color: #666;
+        }
+
+        /* General table styling */
+        .employee-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            
+        }
+
+        .employee-table th,
+        .employee-table td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .employee-table th {
+            background-color: #f8f9fa;
+            color: #333;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .employee-table tbody tr {
+            background-color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        .employee-table tbody tr:hover {
+            background-color: #f1f3f5;
+        }
+
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #f8f9fa;
+        }
+
+        /* Employee image */
+        .employee-img {
+            border-radius: 50%;
+            margin-right: 10px;
+            width: 40px;
+            height: 40px;
+            vertical-align: middle;
+        }
+
+        /* Badges */
+        .badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .badge-tech {
+            background-color: #28a745;
+        }
+
+        .badge-hr {
+            background-color: #007bff;
+        }
+
+        /* Button styles */
+        .details-btn {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .details-btn:hover {
+            background-color: #0056b3;
+        }
+
+
+        .dots-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        .dots-btn:focus,
+        .details-btn:focus {
+            outline: none;
+        }
+
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            .employee-table tbody tr td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="sub-content">
+        <div class="container df jc-sb align-center">
+            <div class="left">
+                <div class="title-details df gap-1">
+                    <div class="icon-container">
+                        <img src="/static/img/employee-icon.svg" alt="" width="25px" height="30px">
+                    </div>
+
+                    <div class="df-vertical">
+                        <h4 class="m-0 mb-1">Employee</h4>
+                        <p class="m-0 text-small text-gray">Manage your employee</p>
+                    </div>
+                </div>
+            </div>
+            <div class="right df gap-1 ">
+                <a href="" class="btn-outline "><span><img src="/static/img/cloud-download-svgrepo-com.svg" height="15"
+                            alt=""></span> Export List</a>
+                <a href="" class="btn-primary"> + Add Employee</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="submenu-options df gap-2 align-center">
+        <div class="menu-btn text-small text-bold">
+            <img src="/static/img/edit-user.svg" alt="" width="15px">
+            <a class="text-gray" href="">Manage Employees</a>
+        </div>
+        <div class="menu-btn text-small text-bold">
+            <img src="/static/img/calendar.svg" alt="" width="15px">
+            <a class="text-gray" href="">Request Time Off</a>
+        </div>
+
+    </section>
+    <section class="main-content p">
+        <div class="title-container df align-center jc-sb">
+            <h3> Manage Employees</h3>
+
+            <div class="search">
+                <span class="search-icon">
+                    <i class="fas fa-search"></i>
+                </span>
+                <input class="form-control" type="search" name="searchbox" placeholder="search employees">
+            </div>
+
+        </div>
+
+        <div class="table">
+            <table class="employee-table table-striped">
+                <thead>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Phone Number</th>
+                        <th>Department</th>
+                        <th>Job Title</th>
+                        <th>Email</th>
+                        <th>Phone Extension</th>
+                        <th>Contract Type</th>
+                        <th>Company</th>
+                        <th>Last Login</th>
+                        <th class="">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src="https://via.placeholder.com/40" alt="Employee" class="employee-img">
+                            Dave Monama
+                        </td>
+                        <td>+27 72 123 4567</td>
+                        <td><span class="badge badge-tech">IT</span></td>
+                        <td>Software Developer</td>
+                        <td>it@ragla.org</td>
+                        <td>832</td>
+                        <td>Full-time</td>
+                        <td>SIAB & RAGLA</td>
+                        <td>2024-10-01</td>
+                        <td>
+                            <button class="details-btn">update</button>
+                            <button class="dots-btn">⋮</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="https://via.placeholder.com/40" alt="Employee" class="employee-img">
+                            Samuel Norling
+                        </td>
+                        <td>+27 71 987 6543</td>
+                        <td><span class="badge badge-hr">IT</span></td>
+                        <td>Software Developer</td>
+                        <td>samuel@Schoolinabox.co.za</td>
+                        <td>885</td>
+                        <td>Part-time</td>
+                        <td>SIAB</td>
+                        <td>2024-09-25</td>
+                        <td>
+                            <button class="details-btn">update</button>
+                            <button class="dots-btn">⋮</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </section>
+</body>
+
+</html>
