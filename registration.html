@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Portal</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f7f6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 16px;
+        /* Added padding to ensure space on mobile */
+      }
+
+      .registration-container {
+        background-color: hsl(0, 0%, 100%);
+        width: 90%;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        text-align: left;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        /* Added margin-top to lower the container */
+      }
+
+      .left {
+        width: 50%;
+      }
+
+      .right {
+        width: 50%;
+      }
+
+      .registration-container select {
+        width: -webkit-fill-available;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #dddddd;
+        font-size: 16px;
+        background-color: #fff;
+        appearance: none; /* Removes default dropdown arrow */
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="gray" d="M7 10l5 5 5-5z"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 20px;
+      }
+
+      .title {
+        margin-bottom: 20px;
+        color: #333;
+        text-align: center;
+      }
+
+      .registration-container input {
+        width: -webkit-fill-available;
+
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+        display: block;
+        /* Ensures inputs are block elements */
+      }
+
+      .registration-container input:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+
+      /* Profile picture styles */
+      .profile-picture {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        background-color: #ccc;
+        cursor: pointer;
+      }
+
+      #upload-btn {
+        display: block;
+      }
+
+      .registration-container label,
+      .registration-container select {
+        display: block;
+      }
+
+      /* Textbox for random number */
+      #generated-number {
+        background-color: #f4f7f6;
+        border: 1px solid #ddd;
+        font-size: 16px;
+        width: -webkit-fill-available;
+
+        margin: 10px 0;
+      }
+
+      .registration-btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 15px;
+        border-radius: 8px;
+        width: 30%;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin: 15px 0;
+      }
+
+      form {
+        display: flex;
+        gap: 3rem;
+      }
+
+      .profile-container {
+        display: flex;
+
+        gap: 1rem;
+        justify-items: center;
+      }
+
+      input[type="file"] {
+        display: none;
+      }
+
+      .custom-file-upload {
+        width: 100%;
+
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #dddddd;
+        font-size: 16px;
+        background-color: #fff;
+        cursor: pointer;
+      }
+
+      .m1 {
+        margin: 15px 0;
+      }
+
+      .register {
+        text-align: center;
+      }
+
+      @media (max-width: 768px) {
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+        .registration-btn {
+          width: 100%;
+        }
+        .registration-container {
+          width: 100%;
+        }
+
+        .custom-file-upload {
+          visibility: hidden;
+        }
+
+        .profile-picture {
+          cursor: pointer;
+          width: 100px;
+          height: 100px;
+        }
+
+        .right {
+          width: 100%;
+        }
+
+        .left {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="registration-container">
+      <h2 class="title">Registration</h2>
+      <form action="POST">
+        <div class="left">
+          <!--First Name-->
+          <label for="first-name" class="m1">First Name</label>
+          <input
+            type="text"
+            id="first-name"
+            name="first-name"
+            placeholder="First Name"
+            required
+          />
+
+          <!--Last Name-->
+          <label for="last-name" class="m1">Last Name</label>
+          <input
+            type="last-name"
+            id="last-name"
+            name="last-name"
+            placeholder="Last Name"
+            required
+          />
+
+          <!--Email-->
+          <label for="email" class="m1">Email</label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+
+          <!--Phone Number-->
+          <label for="phone-number" class="m1">Phone Number</label>
+          <input
+            type="tel"
+            id="phone-number"
+            name="phone-number"
+            placeholder="0123456789"
+            pattern="[0-9,-]{3}[0-9,-]{3}[0-9,-]{4}"
+            maxlength="12"
+            minlength="10"
+            required
+          />
+
+          <!--Profile Picture-->
+          <label for="profile-picture" class="m1">Profile Picture</label>
+          <div class="profile-container">
+            <label for="file-upload" class="profile-picture-label">
+              <img
+                id="profile-image"
+                class="profile-picture"
+                src="/templates/images/profile-circle-svgrepo-com (1).svg"
+                alt="Profile Image"
+              />
+            </label>
+
+            <label id="fake-file" for="file-upload" class="custom-file-upload">
+              Choose File
+            </label>
+
+            <input id="file-upload" type="file" />
+          </div>
+        </div>
+
+        <div class="right">
+          <!--Role-->
+          <label for="role" class="m1">Role</label>
+          <select id="role" name="role" required>
+            <option value="">Select Role</option>
+            <!-- Default option -->
+            <option value="admin">Admin</option>
+            <option value="staff">Staff</option>
+          </select>
+
+          <!--Job Title-->
+          <label for="job-title" class="m1">Job Title</label>
+          <select id="job-title" name="job-title">
+            <option value="">Select Title</option>
+            <!--Default Option-->
+            <option value="software-engineer">Software Engineer</option>
+            <option value="marketing">Marketing</option>
+            <option value="finance">Finance</option>
+          </select>
+
+          <!--Department-->
+          <label for="department" class="m1">Department</label>
+          <input
+            type="text"
+            id="department"
+            name="department"
+            placeholder="Department"
+            required
+          />
+
+          <!-- Program dropdown -->
+          <label for="program" class="m1">Program</label>
+          <select id="program" name="program" onchange="generateNumber()">
+            <option value="">Select Program</option>
+            <option value="R">Reaching a Generation</option>
+            <option value="S">School In a Box</option>
+          </select>
+
+          <!-- Non-editable textbox for the generated number -->
+          <label for="generated-number" class="m1">User Unique ID</label>
+          <input type="text" id="generated-number" readonly />
+
+          <label for="Business"></label>
+        </div>
+      </form>
+
+      <div class="register">
+        <button type="submit" class="registration-btn">Register</button>
+      </div>
+    </div>
+
+    <script>
+      // Function to load the profile picture or use the default grey one
+      function loadProfilePicture(event) {
+        const profileImage = document.getElementById("profile-image");
+        const file = event.target.files[0];
+
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            profileImage.src = e.target.result; // Set the uploaded image as profile picture
+          };
+          reader.readAsDataURL(file);
+        } else {
+          profileImage.src =
+            "/templates/accounts/profile-circle-svgrepo-com (1).svg"; // Use default grey image
+        }
+      }
+
+      // Function to generate a random number starting with a specific letter
+      function generateNumber() {
+        const program = document.getElementById("program").value;
+        let randomNum = Math.floor(100000 + Math.random() * 900000); // Generate random 6-digit number
+        let generatedCode = "";
+
+        if (program === "R") {
+          generatedCode = "R" + randomNum; // If "Reaching a Generation" is selected
+        } else if (program === "S") {
+          generatedCode = "S" + randomNum; // If "School In a Box" is selected
+        }
+
+        document.getElementById("generated-number").value = generatedCode; // Display generated code in the text box
+      }
+    </script>
+  </body>
+</html>
